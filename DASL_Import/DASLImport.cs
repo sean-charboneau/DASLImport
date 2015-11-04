@@ -29,28 +29,28 @@ namespace DASL_Import
             using (var db = new DASLContext())
             {
                 dynamic districts = FetchData("SisService/District");
-                for (var i = 0; i < districts.count; i++)
+                for (var i = 0; i < districts.count.Value; i++)
                 {
                     dynamic d = districts.result[i];
                     District districtObj = new District
                     {
-                        RefId = d.RefId,
-                        LocalId = d.LocalId,
-                        StateProvinceId = d.StateProvinceId,
-                        LeaName = d.LeaName,
-                        LeaUrl = d.LeaUrl
+                        RefId = d.RefId.Value,
+                        LocalId = d.LocalId.Value,
+                        StateProvinceId = d.StateProvinceId.Value,
+                        LeaName = d.LeaName.Value,
+                        LeaUrl = d.LeaUrl.Value
                     };
-                    if (d.PhoneNumber.Length > 0)
+                    if (d.PhoneNumber.Count > 0)
                     {
-                        districtObj.PhoneNumber = d.PhoneNumber[0].Number;
+                        districtObj.PhoneNumber = d.PhoneNumber[0].Number.Value;
                     }
-                    if (d.Address.Length > 0)
+                    if (d.Address.Count > 0)
                     {
-                        districtObj.Address = d.Address[0].Street.Line1;
-                        districtObj.City = d.Address[0].City;
-                        districtObj.State = d.Address[0].State;
-                        districtObj.Country = d.Address[0].Country;
-                        districtObj.PostalCode = d.Address[0].PostalCode;
+                        districtObj.Address = d.Address[0].Street.Line1.Value;
+                        districtObj.City = d.Address[0].City.Value;
+                        districtObj.State = d.Address[0].StateProvince.Value;
+                        districtObj.Country = d.Address[0].Country.Value;
+                        districtObj.PostalCode = d.Address[0].PostalCode.Value;
                     }
                     District existingDistrict = db.Districts.SingleOrDefault(di => di.RefId == districtObj.RefId);
                     if(existingDistrict == null)
