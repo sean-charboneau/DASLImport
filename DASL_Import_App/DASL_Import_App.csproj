@@ -152,8 +152,13 @@
     <Compile Include="Migrations\201511040305067_InitialCreate.Designer.cs">
       <DependentUpon>201511040305067_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511060329282_SchoolTable.cs" />
+    <Compile Include="Migrations\201511060329282_SchoolTable.Designer.cs">
+      <DependentUpon>201511060329282_SchoolTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\District.cs" />
+    <Compile Include="Models\School.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +225,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201511040305067_InitialCreate.resx">
       <DependentUpon>201511040305067_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511060329282_SchoolTable.resx">
+      <DependentUpon>201511060329282_SchoolTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -25,7 +25,6 @@ namespace DASL_Import
         static void Main(string[] args)
         {
             Console.WriteLine("Starting DASL Import...");
-            Console.WriteLine(ConfigurationManager.ConnectionStrings["dasl_db"].ConnectionString);
             using (var db = new DASLContext())
             {
                 dynamic districts = FetchData("SisService/District");
@@ -55,9 +54,74 @@ namespace DASL_Import
                     District existingDistrict = db.Districts.SingleOrDefault(di => di.RefId == districtObj.RefId);
                     if(existingDistrict == null)
                     {
+                        // Add it
                         db.Districts.Add(districtObj);
-                        db.SaveChanges();
                     }
+                    else
+                    {
+                        // Keep it up-to-date
+                        existingDistrict.LocalId = districtObj.LocalId;
+                        existingDistrict.StateProvinceId = districtObj.StateProvinceId;
+                        existingDistrict.LeaName = districtObj.LeaName;
+                        existingDistrict.LeaUrl = districtObj.LeaUrl;
+                        existingDistrict.PhoneNumber = districtObj.PhoneNumber;
+                        existingDistrict.Address = districtObj.Address;
+                        existingDistrict.City = districtObj.City;
+                        existingDistrict.State = districtObj.State;
+                        existingDistrict.Country = districtObj.Country;
+                        existingDistrict.PostalCode = districtObj.PostalCode;
+                    }
+                    db.SaveChanges();
+
+                    dynamic schoolsInDistrict = FetchData("SisService/SchoolInfo?leaOrSchoolInfoRefId=" + districtObj.RefId);
+                    for (var j = 0; j < schoolsInDistrict.count.Value; j++)
+                    {
+                        dynamic s = schoolsInDistrict.result[j];
+                        School schoolObj = new School
+                        {
+                            RefId = s.RefId.Value,
+                            LocalId = s.LocalId.Value,
+                            StateProvinceId = s.StateProvinceId.Value,
+                            SchoolName = s.SchoolName.Value,
+                            DistrictRefId = s.LeaInfoRefId.Value,
+                            SchoolUrl = s.SchoolUrl.Value,
+                            PrincipalName = s.PrincipalInfo.ContactName.Value
+                        };
+                        if (s.PhoneNumberList.Count > 0)
+                        {
+                            schoolObj.PhoneNumber = s.PhoneNumberList[0].Number.Value;
+                        }
+                        if (s.Address.Count > 0)
+                        {
+                            schoolObj.Address = s.Address[0].Street.Line1.Value;
+                            schoolObj.City = s.Address[0].City.Value;
+                            schoolObj.State = s.Address[0].StateProvince.Value;
+                            schoolObj.Country = s.Address[0].Country.Value;
+                            schoolObj.PostalCode = s.Address[0].PostalCode.Value;
+                        }
+                        School existingSchool = db.Schools.SingleOrDefault(sc => sc.RefId == schoolObj.RefId);
+                        if (existingSchool == null)
+                        {
+                            // Add it
+                            db.Schools.Add(schoolObj);
+                        }
+                        else
+                        {
+                            // Keep it up-to-date
+                            existingSchool.LocalId = schoolObj.LocalId;
+                            existingSchool.StateProvinceId = schoolObj.StateProvinceId;
+                            existingSchool.SchoolName = schoolObj.SchoolName;
+                            existingSchool.DistrictRefId = schoolObj.DistrictRefId;
+                            existingSchool.SchoolUrl = schoolObj.SchoolUrl;
+                            existingSchool.PhoneNumber = schoolObj.PhoneNumber;
+                            existingSchool.Address = schoolObj.Address;
+                            existingSchool.City = schoolObj.City;
+                            existingSchool.State = schoolObj.State;
+                            existingSchool.Country = schoolObj.Country;
+                            existingSchool.PostalCode = schoolObj.PostalCode;
+                        }
+                    }
+                    db.SaveChanges();
                 }
             }
         }
@@ -92,6 +156,10 @@ namespace DASL_Import
                 {
                     var ttt = response.Content.ReadAsStringAsync().Result;
                     json = JsonConvert.DeserializeObject(ttt);
+                }
+                else
+                {
+                    Console.WriteLine(response.ToString());
                 }
 
                 return json;

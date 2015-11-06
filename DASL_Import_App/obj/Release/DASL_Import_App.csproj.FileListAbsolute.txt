@@ -43,3 +43,4 @@ c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_
 c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\bin\EntityFramework.SqlServer.xml
 c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\obj\Release\DASL_Import_App.Migrations.InitialCreate.resources
 c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\obj\Release\DASL_Import_App.csproj.GenerateResource.Cache
+c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\obj\Release\DASL_Import_App.Migrations.SchoolTable.resources

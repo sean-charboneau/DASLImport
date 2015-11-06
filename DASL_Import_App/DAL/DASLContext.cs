@@ -13,7 +13,8 @@ namespace DASL_Import_App.DAL
         public DASLContext() : base("DASLContext")
         {
         }
-        
+
         public DbSet<District> Districts { get; set; }
+        public DbSet<School> Schools { get; set; }
     }
 }
