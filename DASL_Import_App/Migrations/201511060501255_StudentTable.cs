@@ -1,0 +1,35 @@
+namespace DASL_Import_App.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class StudentTable : DbMigration
+    {
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.Students",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        RefId = c.String(),
+                        LocalId = c.String(),
+                        StateProvinceId = c.String(),
+                        SchoolRefId = c.String(),
+                        FirstName = c.String(),
+                        MiddleName = c.String(),
+                        LastName = c.String(),
+                        PhoneNumber = c.String(),
+                        HomeroomLocalId = c.String(),
+                        GradeLevel = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+        }
+        
+        public override void Down()
+        {
+            DropTable("dbo.Students");
+        }
+    }
+}

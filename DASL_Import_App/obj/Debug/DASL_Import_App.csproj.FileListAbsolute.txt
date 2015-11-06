@@ -44,3 +44,5 @@ c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_
 c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\obj\Debug\DASL_Import_App.csproj.GenerateResource.Cache
 c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\obj\Debug\DASL_Import_App.csprojResolveAssemblyReference.cache
 c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\obj\Debug\DASL_Import_App.Migrations.SchoolTable.resources
+c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\obj\Debug\DASL_Import_App.Migrations.StaffTable.resources
+c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import_App\obj\Debug\DASL_Import_App.Migrations.StudentTable.resources

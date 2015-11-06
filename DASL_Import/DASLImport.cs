@@ -24,9 +24,10 @@ namespace DASL_Import
         // AzureWebJobsDashboard and AzureWebJobsStorage
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting DASL Import...");
+            Console.WriteLine("Starting DASL Import");
             using (var db = new DASLContext())
             {
+                Console.WriteLine("Fetching Districts");
                 dynamic districts = FetchData("SisService/District");
                 for (var i = 0; i < districts.count.Value; i++)
                 {
@@ -73,6 +74,7 @@ namespace DASL_Import
                     }
                     db.SaveChanges();
 
+                    Console.WriteLine("Fetching Schools For District (" + districtObj.RefId + ")");
                     dynamic schoolsInDistrict = FetchData("SisService/SchoolInfo?leaOrSchoolInfoRefId=" + districtObj.RefId);
                     for (var j = 0; j < schoolsInDistrict.count.Value; j++)
                     {
@@ -87,7 +89,7 @@ namespace DASL_Import
                             SchoolUrl = s.SchoolUrl.Value,
                             PrincipalName = s.PrincipalInfo.ContactName.Value
                         };
-                        if (s.PhoneNumberList.Count > 0)
+                        if (s.PhoneNumberList != null && s.PhoneNumberList.Count > 0)
                         {
                             schoolObj.PhoneNumber = s.PhoneNumberList[0].Number.Value;
                         }
@@ -120,8 +122,99 @@ namespace DASL_Import
                             existingSchool.Country = schoolObj.Country;
                             existingSchool.PostalCode = schoolObj.PostalCode;
                         }
+                        db.SaveChanges();
+
+                        Console.WriteLine("Fetching Staff For School (" + schoolObj.RefId + ")");
+                        dynamic staffForSchool = FetchData("SisService/Staff?leaOrSchoolInfoRefId=" + schoolObj.RefId);
+                        if (staffForSchool == null)
+                        {
+                            // This school likely no longer exists
+                            Console.WriteLine("School no longer exists (" + schoolObj.RefId + ")");
+                            continue;
+                        }
+                        for (var k = 0; k < staffForSchool.count.Value; k++)
+                        {
+                            dynamic st = staffForSchool.result[k];
+                            Staff staffObj = new Staff
+                            {
+                                RefId = st.RefId.Value,
+                                LocalId = st.LocalId.Value,
+                                StateProvinceId = st.StateProvinceId.Value,
+                                SchoolRefId = schoolObj.RefId,
+                                FirstName = st.Name.FirstName.Value,
+                                LastName = st.Name.LastName.Value
+                            };
+                            if (st["EmailList"] != null && st.EmailList.Count > 0)
+                            {
+                                staffObj.Email = st.EmailList[0].Value;
+                            }
+                            Staff existingStaff = db.Staffs.SingleOrDefault(sta => sta.RefId == staffObj.RefId);
+                            if (existingStaff == null)
+                            {
+                                // Add it
+                                db.Staffs.Add(staffObj);
+                            }
+                            else
+                            {
+                                // Keep it up-to-date
+                                existingStaff.LocalId = staffObj.LocalId;
+                                existingStaff.StateProvinceId = staffObj.StateProvinceId;
+                                existingStaff.SchoolRefId = staffObj.SchoolRefId;
+                                existingStaff.FirstName = staffObj.FirstName;
+                                existingStaff.LastName = staffObj.LastName;
+                                existingStaff.Email = staffObj.Email;
+                            }
+                            db.SaveChanges();
+                        }
+
+                        Console.WriteLine("Fetching Students For School (" + schoolObj.RefId + ")");
+                        dynamic studentsForSchool = FetchData("SisService/StudentPersonal?leaOrSchoolInfoRefId=" + schoolObj.RefId);
+                        if (studentsForSchool == null)
+                        {
+                            // This school likely no longer exists
+                            continue;
+                        }
+                        for (var k = 0; k < studentsForSchool.count.Value; k++)
+                        {
+                            dynamic st = studentsForSchool.result[k];
+                            Student studentObj = new Student
+                            {
+                                RefId = st.RefId.Value,
+                                LocalId = st.LocalId.Value,
+                                StateProvinceId = st.StateProvinceId.Value,
+                                SchoolRefId = schoolObj.RefId,
+                                FirstName = st.Name.FirstName.Value,
+                                MiddleName = st.Name.MiddleName.Value,
+                                LastName = st.Name.LastName.Value,
+                                HomeroomLocalId = st.MostRecent.HomeroomLocalId.Value,
+                                GradeLevel = st.MostRecent.GradeLevel.Code.Value
+                            };
+                            if (st["PhoneNumberList"] != null && st.PhoneNumberList.Count > 0)
+                            {
+                                studentObj.PhoneNumber = st.PhoneNumberList[0].Number.Value;
+                            }
+                            Student existingStudent = db.Students.SingleOrDefault(sta => sta.RefId == studentObj.RefId);
+                            if (existingStudent == null)
+                            {
+                                // Add it
+                                db.Students.Add(studentObj);
+                            }
+                            else
+                            {
+                                // Keep it up-to-date
+                                existingStudent.LocalId = studentObj.LocalId;
+                                existingStudent.StateProvinceId = studentObj.StateProvinceId;
+                                existingStudent.SchoolRefId = studentObj.SchoolRefId;
+                                existingStudent.FirstName = studentObj.FirstName;
+                                existingStudent.MiddleName = studentObj.MiddleName;
+                                existingStudent.LastName = studentObj.LastName;
+                                existingStudent.PhoneNumber = studentObj.PhoneNumber;
+                                existingStudent.HomeroomLocalId = studentObj.HomeroomLocalId;
+                                existingStudent.GradeLevel = studentObj.GradeLevel;
+                            }
+                            db.SaveChanges();
+                        }
                     }
-                    db.SaveChanges();
                 }
             }
         }
@@ -151,15 +244,11 @@ namespace DASL_Import
 
                 HttpResponseMessage response = client.GetAsync(endpoint).Result;
 
-                dynamic json = "";
+                dynamic json = null;
                 if(response.IsSuccessStatusCode)
                 {
                     var ttt = response.Content.ReadAsStringAsync().Result;
                     json = JsonConvert.DeserializeObject(ttt);
-                }
-                else
-                {
-                    Console.WriteLine(response.ToString());
                 }
 
                 return json;

@@ -156,9 +156,19 @@
     <Compile Include="Migrations\201511060329282_SchoolTable.Designer.cs">
       <DependentUpon>201511060329282_SchoolTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511060409186_StaffTable.cs" />
+    <Compile Include="Migrations\201511060409186_StaffTable.Designer.cs">
+      <DependentUpon>201511060409186_StaffTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511060501255_StudentTable.cs" />
+    <Compile Include="Migrations\201511060501255_StudentTable.Designer.cs">
+      <DependentUpon>201511060501255_StudentTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\School.cs" />
+    <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +238,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511060329282_SchoolTable.resx">
       <DependentUpon>201511060329282_SchoolTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511060409186_StaffTable.resx">
+      <DependentUpon>201511060409186_StaffTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511060501255_StudentTable.resx">
+      <DependentUpon>201511060501255_StudentTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
