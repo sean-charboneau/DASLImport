@@ -164,8 +164,17 @@
     <Compile Include="Migrations\201511060501255_StudentTable.Designer.cs">
       <DependentUpon>201511060501255_StudentTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511070157220_RoomTable.cs" />
+    <Compile Include="Migrations\201511070157220_RoomTable.Designer.cs">
+      <DependentUpon>201511070157220_RoomTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511070220483_StudentHomeroom.cs" />
+    <Compile Include="Migrations\201511070220483_StudentHomeroom.Designer.cs">
+      <DependentUpon>201511070220483_StudentHomeroom.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\District.cs" />
+    <Compile Include="Models\Room.cs" />
     <Compile Include="Models\School.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Student.cs" />
@@ -244,6 +253,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511060501255_StudentTable.resx">
       <DependentUpon>201511060501255_StudentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511070157220_RoomTable.resx">
+      <DependentUpon>201511070157220_RoomTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511070220483_StudentHomeroom.resx">
+      <DependentUpon>201511070220483_StudentHomeroom.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

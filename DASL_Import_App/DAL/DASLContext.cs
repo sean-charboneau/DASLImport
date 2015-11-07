@@ -15,6 +15,7 @@ namespace DASL_Import_App.DAL
         }
 
         public DbSet<District> Districts { get; set; }
+        public DbSet<Room> Rooms { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Student> Students { get; set; }

@@ -132,6 +132,7 @@ namespace DASL_Import
                             Console.WriteLine("School no longer exists (" + schoolObj.RefId + ")");
                             continue;
                         }
+                        Console.WriteLine(staffForSchool.count.Value + " Found");
                         for (var k = 0; k < staffForSchool.count.Value; k++)
                         {
                             dynamic st = staffForSchool.result[k];
@@ -168,31 +169,29 @@ namespace DASL_Import
                         }
 
                         Console.WriteLine("Fetching Students For School (" + schoolObj.RefId + ")");
-                        dynamic studentsForSchool = FetchData("SisService/StudentPersonal?leaOrSchoolInfoRefId=" + schoolObj.RefId);
+                        dynamic studentsForSchool = FetchData("SisService/StudentSnapshot?schoolInfoRefId=" + schoolObj.RefId);
                         if (studentsForSchool == null)
                         {
                             // This school likely no longer exists
                             continue;
                         }
+                        Console.WriteLine(studentsForSchool.count.Value + " Found");
                         for (var k = 0; k < studentsForSchool.count.Value; k++)
                         {
                             dynamic st = studentsForSchool.result[k];
                             Student studentObj = new Student
                             {
-                                RefId = st.RefId.Value,
+                                RefId = st.StudentPersonalRefId.Value,
                                 LocalId = st.LocalId.Value,
                                 StateProvinceId = st.StateProvinceId.Value,
                                 SchoolRefId = schoolObj.RefId,
                                 FirstName = st.Name.FirstName.Value,
                                 MiddleName = st.Name.MiddleName.Value,
                                 LastName = st.Name.LastName.Value,
-                                HomeroomLocalId = st.MostRecent.HomeroomLocalId.Value,
-                                GradeLevel = st.MostRecent.GradeLevel.Code.Value
+                                HomeroomNumber = st.HomeEnrollment.HomeroomNumber.Value,
+                                GradeLevel = st.HomeEnrollment.GradeLevel.Code.Value
                             };
-                            if (st["PhoneNumberList"] != null && st.PhoneNumberList.Count > 0)
-                            {
-                                studentObj.PhoneNumber = st.PhoneNumberList[0].Number.Value;
-                            }
+
                             Student existingStudent = db.Students.SingleOrDefault(sta => sta.RefId == studentObj.RefId);
                             if (existingStudent == null)
                             {
@@ -208,9 +207,48 @@ namespace DASL_Import
                                 existingStudent.FirstName = studentObj.FirstName;
                                 existingStudent.MiddleName = studentObj.MiddleName;
                                 existingStudent.LastName = studentObj.LastName;
-                                existingStudent.PhoneNumber = studentObj.PhoneNumber;
-                                existingStudent.HomeroomLocalId = studentObj.HomeroomLocalId;
+                                existingStudent.HomeroomNumber = studentObj.HomeroomNumber;
                                 existingStudent.GradeLevel = studentObj.GradeLevel;
+                            }
+                            db.SaveChanges();
+                        }
+
+                        Console.WriteLine("Fetching Rooms For School (" + schoolObj.RefId + ")");
+                        dynamic roomsForSchool = FetchData("SisService/Room?leaOrSchoolInfoRefId=" + schoolObj.RefId);
+                        if (roomsForSchool == null)
+                        {
+                            // This school likely no longer exists
+                            continue;
+                        }
+                        Console.WriteLine(roomsForSchool.count.Value + " Found");
+                        for (var k = 0; k < roomsForSchool.count.Value; k++)
+                        {
+                            dynamic r = roomsForSchool.result[k];
+
+                            Room roomObj = new Room
+                            {
+                                RefId = r.RefId.Value,
+                                SchoolRefId = schoolObj.RefId,
+                                RoomNumber = r.RoomNumber.Value,
+                                Capacity = r.Capacity.Value.ToString()
+                            };
+                            if (r["StaffList"] != null && r.StaffList["StaffPersonalRefId"] != null && r.StaffList.StaffPersonalRefId.Count > 0)
+                            {
+                                roomObj.StaffRefId = r.StaffList.StaffPersonalRefId[0].Value;
+                            }
+                            Room existingRoom = db.Rooms.SingleOrDefault(ro => ro.RefId == roomObj.RefId);
+                            if (existingRoom == null)
+                            {
+                                // Add it
+                                db.Rooms.Add(roomObj);
+                            }
+                            else
+                            {
+                                // Keep it up-to-date
+                                existingRoom.SchoolRefId = roomObj.SchoolRefId;
+                                existingRoom.StaffRefId = roomObj.StaffRefId;
+                                existingRoom.RoomNumber = roomObj.RoomNumber;
+                                existingRoom.Capacity = roomObj.Capacity;
                             }
                             db.SaveChanges();
                         }
