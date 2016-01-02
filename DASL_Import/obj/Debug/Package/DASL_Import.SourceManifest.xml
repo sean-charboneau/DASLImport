@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
-  <IisApp path="c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import\obj\Debug\Package\PackageTmp" managedRuntimeVersion="v4.0" />
-  <setAcl path="c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import\obj\Debug\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import\obj\Debug\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
-  <setAcl path="c:\users\sean\documents\visual studio 2013\Projects\DASL_Import_App\DASL_Import\obj\Debug\Package\PackageTmp\App_Data" setAclResourceType="Directory" setAclAccess="Write" />
+  <IisApp path="C:\Users\Sean\Documents\Visual Studio 2013\Projects\DASL_Import_App\DASL_Import\obj\Debug\Package\PackageTmp" managedRuntimeVersion="v4.0" />
+  <setAcl path="C:\Users\Sean\Documents\Visual Studio 2013\Projects\DASL_Import_App\DASL_Import\obj\Debug\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\Sean\Documents\Visual Studio 2013\Projects\DASL_Import_App\DASL_Import\obj\Debug\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\Sean\Documents\Visual Studio 2013\Projects\DASL_Import_App\DASL_Import\obj\Debug\Package\PackageTmp\App_Data" setAclResourceType="Directory" setAclAccess="Write" />
 </sitemanifest>

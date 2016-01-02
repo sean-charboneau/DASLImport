@@ -9,14 +9,14 @@ namespace DASL_Import_App.Models
     {
         public int ID { get; set; }
 
-        public string RefId { get; set; }
-        public string LocalId { get; set; }
-        public string StateProvinceId { get; set; }
-        public string SchoolRefId { get; set; }
+        public string StudentId { get; set; }
+        public string SchoolId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public string HomeroomNumber { get; set; }
+        public string Gender { get; set; }
+        public string DOB { get; set; }
         public string GradeLevel { get; set; }
+        public string ExternalRefId { get; set; }
     }
 }

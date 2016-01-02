@@ -9,18 +9,15 @@ namespace DASL_Import_App.Models
     {
         public int ID { get; set; }
 
-        public string RefId { get; set; }
-        public string LocalId { get; set; }
-        public string StateProvinceId { get; set; }
+        public string SchoolId { get; set; }
+        public string DistrictSchoolId { get; set; }
         public string SchoolName { get; set; }
-        public string DistrictRefId { get; set; }
-        public string SchoolUrl { get; set; }
         public string PrincipalName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public string Country { get; set; }
-        public string PostalCode { get; set; }
+        public string ZIP { get; set; }
         public string PhoneNumber { get; set; }
+        public string ExternalRefId { get; set; }
     }
 }

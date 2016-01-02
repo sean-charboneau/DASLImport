@@ -172,12 +172,45 @@
     <Compile Include="Migrations\201511070220483_StudentHomeroom.Designer.cs">
       <DependentUpon>201511070220483_StudentHomeroom.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512020213404_School-Refactor.cs" />
+    <Compile Include="Migrations\201512020213404_School-Refactor.Designer.cs">
+      <DependentUpon>201512020213404_School-Refactor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512020232313_Drop-Active.cs" />
+    <Compile Include="Migrations\201512020232313_Drop-Active.Designer.cs">
+      <DependentUpon>201512020232313_Drop-Active.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512020247488_Drop-School.cs" />
+    <Compile Include="Migrations\201512020247488_Drop-School.Designer.cs">
+      <DependentUpon>201512020247488_Drop-School.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512020248425_Add-School.cs" />
+    <Compile Include="Migrations\201512020248425_Add-School.Designer.cs">
+      <DependentUpon>201512020248425_Add-School.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512020309292_Add-Class.cs" />
+    <Compile Include="Migrations\201512020309292_Add-Class.Designer.cs">
+      <DependentUpon>201512020309292_Add-Class.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512030135403_Student-Update.cs" />
+    <Compile Include="Migrations\201512030135403_Student-Update.Designer.cs">
+      <DependentUpon>201512030135403_Student-Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512030241328_Student-Class.cs" />
+    <Compile Include="Migrations\201512030241328_Student-Class.Designer.cs">
+      <DependentUpon>201512030241328_Student-Class.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512192105460_Extra-Class-Fields.cs" />
+    <Compile Include="Migrations\201512192105460_Extra-Class-Fields.Designer.cs">
+      <DependentUpon>201512192105460_Extra-Class-Fields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\District.cs" />
+    <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\School.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +292,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511070220483_StudentHomeroom.resx">
       <DependentUpon>201511070220483_StudentHomeroom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512020213404_School-Refactor.resx">
+      <DependentUpon>201512020213404_School-Refactor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512020232313_Drop-Active.resx">
+      <DependentUpon>201512020232313_Drop-Active.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512020247488_Drop-School.resx">
+      <DependentUpon>201512020247488_Drop-School.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512020248425_Add-School.resx">
+      <DependentUpon>201512020248425_Add-School.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512020309292_Add-Class.resx">
+      <DependentUpon>201512020309292_Add-Class.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512030135403_Student-Update.resx">
+      <DependentUpon>201512030135403_Student-Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512030241328_Student-Class.resx">
+      <DependentUpon>201512030241328_Student-Class.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512192105460_Extra-Class-Fields.resx">
+      <DependentUpon>201512192105460_Extra-Class-Fields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
