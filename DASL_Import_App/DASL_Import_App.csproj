@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <ApplicationInsightsResourceId>/subscriptions/29a92a74-ed47-40ff-9911-2c2d524c49bb/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/DASL_Import_App</ApplicationInsightsResourceId>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -204,11 +205,34 @@
     <Compile Include="Migrations\201512192105460_Extra-Class-Fields.Designer.cs">
       <DependentUpon>201512192105460_Extra-Class-Fields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601021903041_Student-Rewrite.cs" />
+    <Compile Include="Migrations\201601021903041_Student-Rewrite.Designer.cs">
+      <DependentUpon>201601021903041_Student-Rewrite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601030057167_Student-Tweaks.cs" />
+    <Compile Include="Migrations\201601030057167_Student-Tweaks.Designer.cs">
+      <DependentUpon>201601030057167_Student-Tweaks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601030059162_Id-Type.cs" />
+    <Compile Include="Migrations\201601030059162_Id-Type.Designer.cs">
+      <DependentUpon>201601030059162_Id-Type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601031959530_Periods.cs" />
+    <Compile Include="Migrations\201601031959530_Periods.Designer.cs">
+      <DependentUpon>201601031959530_Periods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601032004469_Period-Times.cs" />
+    <Compile Include="Migrations\201601032004469_Period-Times.Designer.cs">
+      <DependentUpon>201601032004469_Period-Times.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601090133327_Absence-Table.cs" />
+    <Compile Include="Migrations\201601090133327_Absence-Table.Designer.cs">
+      <DependentUpon>201601090133327_Absence-Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Absence.cs" />
     <Compile Include="Models\Class.cs" />
-    <Compile Include="Models\Room.cs" />
-    <Compile Include="Models\School.cs" />
-    <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\SchoolPeriod.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -232,8 +256,10 @@
     <None Include="Properties\PublishProfiles\DASLImport %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\DASLImport %284%29.pubxml" />
     <None Include="Properties\PublishProfiles\DASLImport - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\DASLImport - FTP %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\DASLImport - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\DASLImport - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\DASLImport - Web Deploy %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\DASLImport - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\DASLImport.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -316,6 +342,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512192105460_Extra-Class-Fields.resx">
       <DependentUpon>201512192105460_Extra-Class-Fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601021903041_Student-Rewrite.resx">
+      <DependentUpon>201601021903041_Student-Rewrite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601030057167_Student-Tweaks.resx">
+      <DependentUpon>201601030057167_Student-Tweaks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601030059162_Id-Type.resx">
+      <DependentUpon>201601030059162_Id-Type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601031959530_Periods.resx">
+      <DependentUpon>201601031959530_Periods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601032004469_Period-Times.resx">
+      <DependentUpon>201601032004469_Period-Times.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601090133327_Absence-Table.resx">
+      <DependentUpon>201601090133327_Absence-Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

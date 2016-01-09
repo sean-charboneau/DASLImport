@@ -9,15 +9,13 @@ namespace DASL_Import_App.Models
     {
         public int ID { get; set; }
 
-        public string DistrictCourseId { get; set; }
+        public string CourseCode { get; set; }
         public string CourseName { get; set; }
-        public string SchoolId { get; set; }
-        public string ClassId { get; set; }
-        public string CourseId { get; set; }
-        public string RoomId { get; set; }
-        public string TeacherId { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public string SectionNumber { get; set; }
+        public string TermCode { get; set; }
+        public string Location { get; set; }
+        public string TeacherCode { get; set; }
+        public string PeriodNumber { get; set; }
         public string ExternalRefId { get; set; }
     }
 }

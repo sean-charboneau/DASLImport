@@ -91,6 +91,8 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\DASLImport %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\DASLImport %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\DASLImport - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\DASLImport - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\DASLImport.pubxml" />
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>

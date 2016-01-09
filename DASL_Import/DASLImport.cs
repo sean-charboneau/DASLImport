@@ -32,13 +32,11 @@ namespace DASL_Import
             }
             else if (day < 6) // Weekday
             {
-                //WeekdayFetch();
-                WeekendFetch();
+                WeekdayFetch();
             }
             else
             {
-                //Console.WriteLine("Saturday, no fetch required");
-                WeekendFetch();
+                Console.WriteLine("Saturday, no fetch required");
             }
         }
 
@@ -47,66 +45,121 @@ namespace DASL_Import
             Console.WriteLine("Weekday");
             using (var db = new DASLContext())
             {
-                var endpoint = "GBService/buc/school";
-                dynamic schools = FetchData(endpoint);
+                var schoolId = "16f79fbc-385b-4eb6-9466-977500d34432";
+                dynamic attendance = FetchData("SisService/StudentDailyAttendance?schoolInfoRefId=" + schoolId);
+
+                for (var i = 0; i < attendance.count.Value; i++)
+                {
+                    dynamic a = attendance.result[i];
+                    string studentRefId = a.StudentPersonalRefId.Value;
+                    string absenceDate = a.Date.Value;
+
+                    DateTime date = DateTime.Parse(absenceDate);
+                    Student student = db.Students.SingleOrDefault(sc => sc.ExternalRefId == studentRefId);
+
+                    if (student == null)
+                    {
+                        Console.WriteLine("Unknown student, skipping...");
+                        continue;
+                    }
+
+                    Absence existingAbsence = db.Absences.SingleOrDefault(ab => (ab.Student.ID == student.ID) && (ab.Date == date));
+
+                    if (existingAbsence != null)
+                    {
+                        Console.WriteLine("Already recorded, skipping...");
+                        continue;
+                    }
+
+                    Absence abObj = new Absence
+                    {
+                        Student = student,
+                        Date = date
+                    };
+
+                    db.Absences.Add(abObj);
+                    db.SaveChanges();
+                }
             }
         }
 
         public static void WeekendFetch()
         {
+            // TODO Hopefully DASL will allow us to populate districts/classes/school/etc. automatically
             using (var db = new DASLContext())
             {
-                Console.WriteLine("Fetching Schools For District (buc)");
-                dynamic schoolsInDistrict = FetchData("GBService/buc/school");
-                    
-                for (var i = 0; i < schoolsInDistrict.count.Value; i++)
-                {
-                    dynamic s = schoolsInDistrict.result[i];
-                    School schoolObj = new School
-                    {
-                        SchoolId = s.SchoolID.Value.ToString(),
-                        DistrictSchoolId = s.DistrictSchoolID.Value,
-                        SchoolName = s.SchoolName.Value,
-                        PrincipalName = s.PrincipalName.Value,
-                        Address = s.Address.Value,
-                        City = s.City.Value,
-                        State = s.State.Value,
-                        ZIP = s.ZIP.Value,
-                        PhoneNumber = s.PhoneNumber.Value,
-                        ExternalRefId = s.ExternalRefId.Value
-                    };
-                    School existingSchool = db.Schools.SingleOrDefault(sc => sc.SchoolId == schoolObj.SchoolId);
-                    if (existingSchool == null)
-                    {
-                        // Add it
-                        db.Schools.Add(schoolObj);
-                    }
-                    else
-                    {
-                        // Keep it up-to-date
-                        existingSchool.SchoolId = schoolObj.SchoolId;
-                        existingSchool.DistrictSchoolId = schoolObj.DistrictSchoolId;
-                        existingSchool.SchoolName = schoolObj.SchoolName;
-                        existingSchool.PrincipalName = schoolObj.PrincipalName;
-                        existingSchool.PhoneNumber = schoolObj.PhoneNumber;
-                        existingSchool.Address = schoolObj.Address;
-                        existingSchool.City = schoolObj.City;
-                        existingSchool.State = schoolObj.State;
-                        existingSchool.ZIP = schoolObj.ZIP;
-                        existingSchool.ExternalRefId = schoolObj.ExternalRefId;
-                    }
-                    db.SaveChanges();
+                //dynamic studentsInSchool = FetchData("SisService/StudentPersonal?leaOrSchoolInfoRefId=" + schoolId);
+                //Console.WriteLine(studentsInSchool.count.Value);
+                //var found = 0;
 
-                    Console.WriteLine("Fetching Classes For School (" + schoolObj.SchoolId + ")");
-                    dynamic classesForSchool = FetchData("GBService/buc/class?SchoolID=" + schoolObj.SchoolId);
-                    if (classesForSchool == null)
-                    {
-                        // This school likely no longer exists
-                        Console.WriteLine("School no longer exists (" + schoolObj.SchoolId + ")");
-                        continue;
-                    }
-                    Console.WriteLine(classesForSchool.count.Value + " Found");
-                    for (var j = 0; j < classesForSchool.count.Value; j++)
+                //for(var i = 0; i < studentsInSchool.count.Value; i++)
+                //{
+                //    dynamic s = studentsInSchool.result[i];
+                //    //Console.WriteLine(s);
+                //    string fName = s.Name.FirstName.Value;
+                //    string lName = s.Name.LastName.Value;
+                //    Student existingStudent = db.Students.SingleOrDefault(sc => (sc.FirstName == fName) && (sc.LastName == lName));
+                //    if(existingStudent != null)
+                //    {
+                //        found++;
+                //        existingStudent.ExternalRefId = s.RefId.Value;
+                //        db.SaveChanges();
+                //    }
+                //}
+                //Console.WriteLine(found + "/490");
+
+                //Console.WriteLine("Fetching Schools For District (buc)");
+                //dynamic schoolsInDistrict = FetchData("GBService/buc/school");
+                    
+                //for (var i = 0; i < schoolsInDistrict.count.Value; i++)
+                //{
+                //    Console.WriteLine(schoolsInDistrict.result[i]);
+                    //dynamic s = schoolsInDistrict.result[i];
+                    //School schoolObj = new School
+                    //{
+                    //    SchoolId = s.SchoolID.Value.ToString(),
+                    //    DistrictSchoolId = s.DistrictSchoolID.Value,
+                    //    SchoolName = s.SchoolName.Value,
+                    //    PrincipalName = s.PrincipalName.Value,
+                    //    Address = s.Address.Value,
+                    //    City = s.City.Value,
+                    //    State = s.State.Value,
+                    //    ZIP = s.ZIP.Value,
+                    //    PhoneNumber = s.PhoneNumber.Value,
+                    //    ExternalRefId = s.ExternalRefId.Value
+                    //};
+                    //School existingSchool = db.Schools.SingleOrDefault(sc => sc.SchoolId == schoolObj.SchoolId);
+                    //if (existingSchool == null)
+                    //{
+                    //    // Add it
+                    //    db.Schools.Add(schoolObj);
+                    //}
+                    //else
+                    //{
+                    //    // Keep it up-to-date
+                    //    existingSchool.SchoolId = schoolObj.SchoolId;
+                    //    existingSchool.DistrictSchoolId = schoolObj.DistrictSchoolId;
+                    //    existingSchool.SchoolName = schoolObj.SchoolName;
+                    //    existingSchool.PrincipalName = schoolObj.PrincipalName;
+                    //    existingSchool.PhoneNumber = schoolObj.PhoneNumber;
+                    //    existingSchool.Address = schoolObj.Address;
+                    //    existingSchool.City = schoolObj.City;
+                    //    existingSchool.State = schoolObj.State;
+                    //    existingSchool.ZIP = schoolObj.ZIP;
+                    //    existingSchool.ExternalRefId = schoolObj.ExternalRefId;
+                    //}
+                    //db.SaveChanges();
+
+                    //Console.WriteLine("Fetching Classes For School (" + schoolObj.SchoolId + ")");
+                    //dynamic classesForSchool = FetchData("GBService/buc/class?SchoolID=" + schoolObj.SchoolId);
+                    //if (classesForSchool == null)
+                    //{
+                    //    // This school likely no longer exists
+                    //    Console.WriteLine("School no longer exists (" + schoolObj.SchoolId + ")");
+                    //    continue;
+                    //}
+                    //Console.WriteLine(classesForSchool.count.Value + " Found");
+                    /*for (var j = 0; j < classesForSchool.count.Value; j++)
                     {
                         dynamic c = classesForSchool.result[j];
                         Class classObj = new Class
@@ -215,7 +268,7 @@ namespace DASL_Import
                                 }
                             }
                         }
-                    }
+                    }*/
 
                     /*Console.WriteLine("Fetching Staff For School (" + schoolObj.RefId + ")");
                     dynamic staffForSchool = FetchData("SisService/Staff?leaOrSchoolInfoRefId=" + schoolObj.RefId);
@@ -345,7 +398,7 @@ namespace DASL_Import
                         }
                         db.SaveChanges();
                     }*/
-                }
+                //}
             }
         }
 
