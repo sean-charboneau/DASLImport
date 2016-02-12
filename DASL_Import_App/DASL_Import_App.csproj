@@ -229,10 +229,19 @@
     <Compile Include="Migrations\201601090133327_Absence-Table.Designer.cs">
       <DependentUpon>201601090133327_Absence-Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602120248418_Staff-Members.cs" />
+    <Compile Include="Migrations\201602120248418_Staff-Members.Designer.cs">
+      <DependentUpon>201602120248418_Staff-Members.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602120255348_Remove-Gender.cs" />
+    <Compile Include="Migrations\201602120255348_Remove-Gender.Designer.cs">
+      <DependentUpon>201602120255348_Remove-Gender.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Absence.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\SchoolPeriod.cs" />
+    <Compile Include="Models\StaffMember.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -360,6 +369,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601090133327_Absence-Table.resx">
       <DependentUpon>201601090133327_Absence-Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602120248418_Staff-Members.resx">
+      <DependentUpon>201602120248418_Staff-Members.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602120255348_Remove-Gender.resx">
+      <DependentUpon>201602120255348_Remove-Gender.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

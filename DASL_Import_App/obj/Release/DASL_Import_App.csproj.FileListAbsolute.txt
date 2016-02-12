@@ -120,3 +120,5 @@ C:\Users\Sean\Documents\GitHub\DASLImport\DASL_Import_App\obj\Release\DASL_Impor
 C:\Users\Sean\Documents\GitHub\DASLImport\DASL_Import_App\obj\Release\DASL_Import_App.dll
 C:\Users\Sean\Documents\GitHub\DASLImport\DASL_Import_App\obj\Release\DASL_Import_App.pdb
 C:\Users\Sean\Documents\GitHub\DASLImport\DASL_Import_App\obj\Release\DASL_Import_App.csprojResolveAssemblyReference.cache
+C:\Users\Sean\Documents\GitHub\DASLImport\DASL_Import_App\obj\Release\DASL_Import_App.Migrations.StaffMembers.resources
+C:\Users\Sean\Documents\GitHub\DASLImport\DASL_Import_App\obj\Release\DASL_Import_App.Migrations.RemoveGender.resources

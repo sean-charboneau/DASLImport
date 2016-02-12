@@ -17,6 +17,7 @@ namespace DASL_Import_App.DAL
         public DbSet<Absence> Absences { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<SchoolPeriod> SchoolPeriods { get; set; }
+        public DbSet<StaffMember> StaffMembers { get; set; }
         public DbSet<StudentClass> StudentClasses { get; set; }
         public DbSet<Student> Students { get; set; }
     }
